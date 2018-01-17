@@ -2,5 +2,8 @@ p{
     color: red;
 }
 .nav-link{
-    background: red;
+    background: rgb(39, 175, 62);
+}
+.bage{
+    background-image: '../image/123.jpg';
 }

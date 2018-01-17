@@ -1,5 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var webSite = {
+    publicPath:'http://127.0.0.1:8080'
+};
 var config = {
     /*入口*/
     //entry: path.resolve(__dirname, 'src/index.js'),
@@ -33,11 +38,16 @@ var config = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         // new webpack.optimize.UglifyJsPlugin()
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: path.join(__dirname, 'src/index.html'),
+            title:'首页'
+        }),
     ],
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.resolve(__dirname, 'src/'),
-        publicPath: path.resolve(__dirname, '/'),
+        contentBase: path.resolve(__dirname, 'dist/'),
+        publicPath: webSite.publicPath,
         hot:true,
         host:'0.0.0.0'
 

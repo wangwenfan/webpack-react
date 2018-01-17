@@ -1,10 +1,22 @@
 import React from 'react';
 
 import {HashRouter as Router, Route, Switch, Link,NavLink,Redirect} from 'react-router-dom';
-
-import Home from 'pages/home';
+import Bundle from './bundle';
+import Home from 'bundle-loader?lazy&name=home!pages/home';
 import Page1 from 'pages/page1';
 import ErrorPage from './error';
+
+const Loading = function () {
+    return <div>Loading...</div>
+};
+
+const createComponent = (component) => () => (
+    <Bundle load={component}>
+        {
+            (Component) => Component ? <Component/> : <Loading/>
+        }
+    </Bundle>
+);
 
 const NavBar = ()=>(
     <div>
@@ -20,7 +32,7 @@ const getRouter = () => (
         <div>
             <NavBar/>
             <Switch>
-                <Route exact path="/" component={Home}/>
+                <Route exact path="/" component={createComponent(Home)}/>
                 <Route path="/page1/:param" component={Page1}/>
                 <Route  component={ErrorPage} />
             </Switch>
